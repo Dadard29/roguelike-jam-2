@@ -1,12 +1,13 @@
 extends PlayerState
 
-onready var attack_area = $AttackArea
-
 var _x_area_position = 64
+onready var _collision = $Collision
 
 func _on_animation_finished():
 	if not player.animation.get_animation() == "attack":
 		return
+		
+	_collision.disabled = true
 		
 	if not player.is_on_floor():
 		state_machine.transition_to("Air")
@@ -26,10 +27,11 @@ func _on_flipped_horizontal(is_flipped) -> void:
 	if is_flipped:
 		new_position_x = -_x_area_position
 		
-	attack_area.set_position(Vector2(new_position_x, 0))
+	self.position = Vector2(new_position_x, 0)
 
 func enter(_msg := {}) -> void:
 	player.update_animation("attack")
+	_collision.disabled = false
 
 func physic_update(delta: float):
 	player.update_velocity(delta)

@@ -16,6 +16,7 @@
 [ext_resource path="res://assets/sprites/perso/air/perso_air0000.png" type="Texture" id=14]
 [ext_resource path="res://assets/sprites/perso/air/perso_air0001.png" type="Texture" id=15]
 [ext_resource path="res://scripts/state/Attack.gd" type="Script" id=16]
+[ext_resource path="res://resources/PersoCollisionBox.tres" type="Shape2D" id=17]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -32,16 +33,13 @@ animations = [ {
 "frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ],
 "loop": false,
 "name": "attack",
-"speed": 10.0
+"speed": 20.0
 }, {
 "frames": [ ExtResource( 3 ), ExtResource( 4 ) ],
 "loop": true,
 "name": "walk",
 "speed": 5.0
 } ]
-
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 32, 48 )
 
 [sub_resource type="CapsuleShape2D" id=3]
 radius = 72.0
@@ -59,11 +57,16 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Collision" type="CollisionShape2D" parent="."]
-shape = SubResource( 2 )
+[node name="CollisionPhysics" type="CollisionShape2D" parent="."]
+shape = ExtResource( 17 )
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="CollisionDamage" type="Area2D" parent="."]
+
+[node name="Shape" type="CollisionShape2D" parent="CollisionDamage"]
+shape = ExtResource( 17 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
@@ -90,14 +93,14 @@ script = ExtResource( 13 )
 [node name="Run" type="Node2D" parent="StateMachine"]
 script = ExtResource( 12 )
 
-[node name="Attack" type="Node2D" parent="StateMachine"]
+[node name="Attack" type="Area2D" parent="StateMachine" groups=["perso_attack"]]
+position = Vector2( 64, 0 )
 script = ExtResource( 16 )
 
-[node name="AttackArea" type="Area2D" parent="StateMachine/Attack"]
-position = Vector2( 64, 0 )
-
-[node name="AttackCollision" type="CollisionShape2D" parent="StateMachine/Attack/AttackArea"]
+[node name="Collision" type="CollisionShape2D" parent="StateMachine/Attack"]
 shape = SubResource( 3 )
+disabled = true
 
 [connection signal="flipped_horizontal" from="." to="StateMachine/Attack" method="_on_flipped_horizontal"]
 [connection signal="animation_finished" from="AnimatedSprite" to="StateMachine/Attack" method="_on_animation_finished"]
+[connection signal="area_entered" from="CollisionDamage" to="." method="_on_CollisionDamage_area_entered"]
