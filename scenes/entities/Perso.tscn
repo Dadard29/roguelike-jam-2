@@ -1,0 +1,103 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://assets/sprites/perso/idle/perso_idle0000.png" type="Texture" id=1]
+[ext_resource path="res://assets/sprites/perso/idle/perso_idle0001.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/perso/walk/perso_walking0000.png" type="Texture" id=3]
+[ext_resource path="res://assets/sprites/perso/walk/perso_walking0001.png" type="Texture" id=4]
+[ext_resource path="res://assets/sprites/perso/attack/perso_attacking0000.png" type="Texture" id=5]
+[ext_resource path="res://assets/sprites/perso/attack/perso_attacking0001.png" type="Texture" id=6]
+[ext_resource path="res://assets/sprites/perso/attack/perso_attacking0002.png" type="Texture" id=7]
+[ext_resource path="res://assets/sprites/perso/attack/perso_attacking0003.png" type="Texture" id=8]
+[ext_resource path="res://scenes/entities/Perso.gd" type="Script" id=9]
+[ext_resource path="res://scripts/state/StateMachine.gd" type="Script" id=10]
+[ext_resource path="res://scripts/state/Idle.gd" type="Script" id=11]
+[ext_resource path="res://scripts/state/Run.gd" type="Script" id=12]
+[ext_resource path="res://scripts/state/Air.gd" type="Script" id=13]
+[ext_resource path="res://assets/sprites/perso/air/perso_air0000.png" type="Texture" id=14]
+[ext_resource path="res://assets/sprites/perso/air/perso_air0001.png" type="Texture" id=15]
+[ext_resource path="res://scripts/state/Attack.gd" type="Script" id=16]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 14 ), ExtResource( 15 ) ],
+"loop": true,
+"name": "air",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ],
+"loop": false,
+"name": "attack",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 32, 48 )
+
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 72.0
+height = 48.0
+
+[node name="Perso" type="KinematicBody2D"]
+script = ExtResource( 9 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+animation = "idle"
+frame = 1
+playing = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Debug" type="Label" parent="."]
+margin_left = -504.0
+margin_top = -288.0
+margin_right = -408.0
+margin_bottom = -242.0
+
+[node name="StateMachine" type="Node2D" parent="."]
+script = ExtResource( 10 )
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node2D" parent="StateMachine"]
+script = ExtResource( 11 )
+
+[node name="Air" type="Node2D" parent="StateMachine"]
+script = ExtResource( 13 )
+
+[node name="Run" type="Node2D" parent="StateMachine"]
+script = ExtResource( 12 )
+
+[node name="Attack" type="Node2D" parent="StateMachine"]
+script = ExtResource( 16 )
+
+[node name="AttackArea" type="Area2D" parent="StateMachine/Attack"]
+position = Vector2( 64, 0 )
+
+[node name="AttackCollision" type="CollisionShape2D" parent="StateMachine/Attack/AttackArea"]
+shape = SubResource( 3 )
+
+[connection signal="flipped_horizontal" from="." to="StateMachine/Attack" method="_on_flipped_horizontal"]
+[connection signal="animation_finished" from="AnimatedSprite" to="StateMachine/Attack" method="_on_animation_finished"]
