@@ -1,0 +1,24 @@
+[gd_resource type="SpriteFrames" load_steps=10 format=2]
+
+[ext_resource path="res://assets/sprites/enemy/inter/idle/body/enemy_inter_idle_body0004.png" type="Texture" id=1]
+[ext_resource path="res://assets/sprites/enemy/inter/idle/body/enemy_inter_idle_body0005.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/enemy/inter/die/enemy_inter_die0007.png" type="Texture" id=3]
+[ext_resource path="res://assets/sprites/enemy/inter/die/enemy_inter_die0006.png" type="Texture" id=4]
+[ext_resource path="res://assets/sprites/enemy/inter/die/enemy_inter_die0009.png" type="Texture" id=5]
+[ext_resource path="res://assets/sprites/enemy/inter/die/enemy_inter_die0008.png" type="Texture" id=6]
+[ext_resource path="res://assets/sprites/enemy/inter/die/enemy_inter_die0004.png" type="Texture" id=7]
+[ext_resource path="res://assets/sprites/enemy/inter/die/enemy_inter_die0005.png" type="Texture" id=8]
+[ext_resource path="res://assets/sprites/enemy/inter/die/enemy_inter_die0010.png" type="Texture" id=9]
+
+[resource]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 5 ), ExtResource( 9 ), null ],
+"loop": true,
+"name": "die",
+"speed": 5.0
+} ]

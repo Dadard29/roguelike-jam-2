@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/entities/Enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/EnemyBasicSprites.tres" type="SpriteFrames" id=2]
-[ext_resource path="res://assets/sounds/hit.mp3" type="AudioStream" id=24]
 
 [sub_resource type="Shader" id=3]
 code = "shader_type canvas_item;
@@ -32,11 +31,8 @@ scale = Vector2( 0.5, 0.5 )
 [node name="Sprite" parent="Animation" index="1"]
 material = SubResource( 4 )
 frames = ExtResource( 2 )
-frame = 4
+frame = 7
 
 [node name="CollisionShape2D" parent="Area2D" index="0"]
 position = Vector2( 3.17838, -2.11893 )
 shape = SubResource( 2 )
-
-[node name="AudioImpact" parent="." index="2"]
-stream = ExtResource( 24 )

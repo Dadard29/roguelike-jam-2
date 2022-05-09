@@ -21,11 +21,10 @@ func _ready() -> void:
 func _on_CollisionDamage_area_entered(area: Area2D) -> void:
 	if area.is_in_group("enemy_body"):
 		var enemy = area.get_parent()
-		if enemy.dying:
-			return
 		
 		# fixme
 		print("took damage")
+		print(enemy)
 	
 func _debug():
 	_debug_label.set_text(

@@ -5,9 +5,11 @@ onready var _collision_box = $Area2D/CollisionShape2D
 onready var _audio_hit = $AudioImpact
 onready var _player = $Animation/Player
 
-var dying: bool = false
+signal dying
 
 func _die():
+	emit_signal("dying")
+	
 	_collision_box.call_deferred("set_disabled", true)
 	_animation.play("die")
 	yield(_animation, "animation_finished")
