@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/strike.mp3.mpeg.mp3-a2b6ebab495ea0fc3cef11337a7ccb8e.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/strike.mp3.mpeg.mp3"
+dest_files=[ "res://.import/strike.mp3.mpeg.mp3-a2b6ebab495ea0fc3cef11337a7ccb8e.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

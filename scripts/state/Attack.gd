@@ -1,7 +1,11 @@
 extends PlayerState
 
-var _x_area_position = 64
+var _x_area_position = 37
 onready var _collision = $Collision
+onready var _sound = $Audio
+
+var _swing_sound = preload("res://assets/sounds/swing.mp3")
+var _hit_sound = preload("res://assets/sounds/hit.mp3")
 
 func _on_animation_finished():
 	if not player.animation.get_animation() == "attack":
@@ -22,7 +26,7 @@ func _on_animation_finished():
 	else:
 		state_machine.transition_to("Idle")
 
-func _on_flipped_horizontal(is_flipped) -> void:
+func flip_horizontal(is_flipped) -> void:
 	var new_position_x = _x_area_position
 	if is_flipped:
 		new_position_x = -_x_area_position
@@ -32,6 +36,8 @@ func _on_flipped_horizontal(is_flipped) -> void:
 func enter(_msg := {}) -> void:
 	player.update_animation("attack")
 	_collision.disabled = false
+	_sound.set_stream(_swing_sound)
+	_sound.play()
 
 func physic_update(delta: float):
 	player.update_velocity(delta)

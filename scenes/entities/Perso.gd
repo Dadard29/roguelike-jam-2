@@ -3,16 +3,17 @@ extends KinematicBody2D
 
 export  (int) var GRAVITY = 2000
 export (int) var JUMP_SPEED = 1000
-export (int) var MOVE_SPEED = 1000
+export (int) var MOVE_SPEED = 700
 
 var velocity: Vector2
 onready var animation = $AnimatedSprite
 
-onready var _debug_label = $Debug
+onready var _debug_label = $CanvasLayer/Container/Debug
 onready var _state_machine = $StateMachine
+onready var _attack_state = $StateMachine/Attack
 var is_flipped_horizontal = false
 
-signal flipped_horizontal(is_flipped)
+signal died
 
 func _ready() -> void:
 	pass
@@ -22,7 +23,8 @@ func _on_CollisionDamage_area_entered(area: Area2D) -> void:
 		var enemy = area.get_parent()
 		if enemy.dying:
 			return
-			
+		
+		# fixme
 		print("took damage")
 	
 func _debug():
@@ -42,6 +44,11 @@ func is_attacking():
 
 func jump():
 	velocity.y = -JUMP_SPEED
+	
+func die():
+	animation.play("die")
+	yield(animation, "animation_finished")
+	emit_signal("died")
 
 func update_velocity(delta: float):
 	var move_direction: float = (
@@ -69,7 +76,7 @@ func update_flip_horizontal():
 	if is_flipped_horizontal != current_flip:
 		is_flipped_horizontal = current_flip
 		animation.flip_h = current_flip
-		emit_signal("flipped_horizontal", current_flip)
+		_attack_state.flip_horizontal(current_flip)
 	
 
 func _physics_process(_delta: float) -> void:

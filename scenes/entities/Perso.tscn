@@ -1,54 +1,113 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=75 format=2]
 
 [ext_resource path="res://assets/sprites/perso/idle/perso_idle0000.png" type="Texture" id=1]
 [ext_resource path="res://assets/sprites/perso/idle/perso_idle0001.png" type="Texture" id=2]
-[ext_resource path="res://assets/sprites/perso/walk/perso_walking0000.png" type="Texture" id=3]
-[ext_resource path="res://assets/sprites/perso/walk/perso_walking0001.png" type="Texture" id=4]
-[ext_resource path="res://assets/sprites/perso/attack/perso_attacking0000.png" type="Texture" id=5]
-[ext_resource path="res://assets/sprites/perso/attack/perso_attacking0001.png" type="Texture" id=6]
-[ext_resource path="res://assets/sprites/perso/attack/perso_attacking0002.png" type="Texture" id=7]
-[ext_resource path="res://assets/sprites/perso/attack/perso_attacking0003.png" type="Texture" id=8]
+[ext_resource path="res://assets/sprites/perso/walk/perso_walk0001.png" type="Texture" id=3]
+[ext_resource path="res://assets/sprites/perso/walk/perso_walk0006.png" type="Texture" id=4]
+[ext_resource path="res://assets/sprites/perso/attack/perso_attack0000.png" type="Texture" id=5]
+[ext_resource path="res://assets/sprites/perso/attack/perso_attack0001.png" type="Texture" id=6]
+[ext_resource path="res://assets/sprites/perso/attack/perso_attack0002.png" type="Texture" id=7]
+[ext_resource path="res://assets/sprites/perso/attack/perso_attack0003.png" type="Texture" id=8]
 [ext_resource path="res://scenes/entities/Perso.gd" type="Script" id=9]
 [ext_resource path="res://scripts/state/StateMachine.gd" type="Script" id=10]
 [ext_resource path="res://scripts/state/Idle.gd" type="Script" id=11]
 [ext_resource path="res://scripts/state/Run.gd" type="Script" id=12]
 [ext_resource path="res://scripts/state/Air.gd" type="Script" id=13]
-[ext_resource path="res://assets/sprites/perso/air/perso_air0000.png" type="Texture" id=14]
-[ext_resource path="res://assets/sprites/perso/air/perso_air0001.png" type="Texture" id=15]
+[ext_resource path="res://assets/sprites/perso/air/perso_jump0002.png" type="Texture" id=14]
+[ext_resource path="res://assets/sprites/perso/idle/perso_idle0004.png" type="Texture" id=15]
 [ext_resource path="res://scripts/state/Attack.gd" type="Script" id=16]
 [ext_resource path="res://resources/PersoCollisionBox.tres" type="Shape2D" id=17]
+[ext_resource path="res://assets/sprites/perso/attack/perso_attack0004.png" type="Texture" id=18]
+[ext_resource path="res://assets/sprites/perso/attack/perso_attack0005.png" type="Texture" id=19]
+[ext_resource path="res://assets/sprites/perso/attack/perso_attack0006.png" type="Texture" id=20]
+[ext_resource path="res://assets/sprites/perso/attack/perso_attack0009.png" type="Texture" id=21]
+[ext_resource path="res://assets/sprites/perso/attack/perso_attack0008.png" type="Texture" id=22]
+[ext_resource path="res://assets/sprites/perso/attack/perso_attack0010.png" type="Texture" id=23]
+[ext_resource path="res://assets/sprites/perso/attack/perso_attack0007.png" type="Texture" id=24]
+[ext_resource path="res://assets/sprites/perso/idle/perso_idle0002.png" type="Texture" id=25]
+[ext_resource path="res://assets/sprites/perso/air/perso_jump0004.png" type="Texture" id=26]
+[ext_resource path="res://assets/sprites/perso/idle/perso_idle0003.png" type="Texture" id=27]
+[ext_resource path="res://assets/sprites/perso/air/perso_jump0005.png" type="Texture" id=28]
+[ext_resource path="res://assets/sprites/perso/air/perso_jump0003.png" type="Texture" id=29]
+[ext_resource path="res://assets/sprites/perso/walk/perso_walk0000.png" type="Texture" id=30]
+[ext_resource path="res://assets/sprites/perso/walk/perso_walk0004.png" type="Texture" id=31]
+[ext_resource path="res://assets/sprites/perso/walk/perso_walk0007.png" type="Texture" id=32]
+[ext_resource path="res://assets/sprites/perso/walk/perso_walk0010.png" type="Texture" id=33]
+[ext_resource path="res://assets/sprites/perso/walk/perso_walk0003.png" type="Texture" id=34]
+[ext_resource path="res://assets/sprites/perso/walk/perso_walk0002.png" type="Texture" id=35]
+[ext_resource path="res://assets/sprites/perso/walk/perso_walk0005.png" type="Texture" id=36]
+[ext_resource path="res://assets/sprites/perso/walk/perso_walk0008.png" type="Texture" id=37]
+[ext_resource path="res://assets/sprites/perso/walk/perso_walk0009.png" type="Texture" id=38]
+[ext_resource path="res://assets/sprites/perso/walk/perso_walk0011.png" type="Texture" id=39]
+[ext_resource path="res://resources/PersoDamageBox.tres" type="Shape2D" id=40]
+[ext_resource path="res://resources/PersoAttackBox.tres" type="Shape2D" id=41]
+[ext_resource path="res://assets/sprites/perso/die/perso_die0000.png" type="Texture" id=42]
+[ext_resource path="res://assets/sprites/perso/die/perso_die0001.png" type="Texture" id=43]
+[ext_resource path="res://assets/sprites/perso/die/perso_die0002.png" type="Texture" id=44]
+[ext_resource path="res://assets/sprites/perso/die/perso_die0022.png" type="Texture" id=45]
+[ext_resource path="res://assets/sprites/perso/die/perso_die0024.png" type="Texture" id=46]
+[ext_resource path="res://assets/sprites/perso/die/perso_die0023.png" type="Texture" id=47]
+[ext_resource path="res://assets/sprites/perso/die/perso_die0025.png" type="Texture" id=48]
+[ext_resource path="res://assets/sprites/perso/die/perso_die0026.png" type="Texture" id=49]
+[ext_resource path="res://assets/sprites/perso/die/perso_die0027.png" type="Texture" id=50]
+[ext_resource path="res://assets/sprites/perso/die/perso_die0017.png" type="Texture" id=51]
+[ext_resource path="res://assets/sprites/perso/die/perso_die0018.png" type="Texture" id=52]
+[ext_resource path="res://assets/sprites/perso/die/perso_die0020.png" type="Texture" id=53]
+[ext_resource path="res://assets/sprites/perso/die/perso_die0016.png" type="Texture" id=54]
+[ext_resource path="res://assets/sprites/perso/die/perso_die0019.png" type="Texture" id=55]
+[ext_resource path="res://assets/sprites/perso/die/perso_die0021.png" type="Texture" id=56]
+[ext_resource path="res://assets/sprites/perso/die/perso_die0008.png" type="Texture" id=57]
+[ext_resource path="res://assets/sprites/perso/die/perso_die0010.png" type="Texture" id=58]
+[ext_resource path="res://assets/sprites/perso/die/perso_die0012.png" type="Texture" id=59]
+[ext_resource path="res://assets/sprites/perso/die/perso_die0006.png" type="Texture" id=60]
+[ext_resource path="res://assets/sprites/perso/die/perso_die0009.png" type="Texture" id=61]
+[ext_resource path="res://assets/sprites/perso/die/perso_die0011.png" type="Texture" id=62]
+[ext_resource path="res://assets/sprites/perso/die/perso_die0013.png" type="Texture" id=63]
+[ext_resource path="res://assets/sprites/perso/die/perso_die0003.png" type="Texture" id=64]
+[ext_resource path="res://assets/sprites/perso/die/perso_die0007.png" type="Texture" id=65]
+[ext_resource path="res://assets/sprites/perso/die/perso_die0014.png" type="Texture" id=66]
+[ext_resource path="res://assets/sprites/perso/die/perso_die0004.png" type="Texture" id=67]
+[ext_resource path="res://assets/sprites/perso/die/perso_die0005.png" type="Texture" id=68]
+[ext_resource path="res://assets/sprites/perso/die/perso_die0015.png" type="Texture" id=69]
+[ext_resource path="res://assets/sprites/perso/die/perso_die0028.png" type="Texture" id=70]
+[ext_resource path="res://assets/sprites/perso/die/perso_die0029.png" type="Texture" id=71]
+[ext_resource path="res://assets/sounds/swing.mp3" type="AudioStream" id=72]
+[ext_resource path="res://resources/EnemyShader.tres" type="Material" id=73]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 1 ), ExtResource( 2 ) ],
+"frames": [ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 25 ), ExtResource( 27 ), ExtResource( 15 ) ],
 "loop": true,
 "name": "idle",
-"speed": 5.0
+"speed": 6.0
 }, {
-"frames": [ ExtResource( 14 ), ExtResource( 15 ) ],
+"frames": [ ExtResource( 42 ), ExtResource( 43 ), ExtResource( 44 ), ExtResource( 64 ), ExtResource( 67 ), ExtResource( 68 ), ExtResource( 60 ), ExtResource( 65 ), ExtResource( 57 ), ExtResource( 61 ), ExtResource( 58 ), ExtResource( 62 ), ExtResource( 59 ), ExtResource( 63 ), ExtResource( 66 ), ExtResource( 69 ), ExtResource( 54 ), ExtResource( 51 ), ExtResource( 52 ), ExtResource( 55 ), ExtResource( 53 ), ExtResource( 56 ), ExtResource( 45 ), ExtResource( 47 ), ExtResource( 46 ), ExtResource( 48 ), ExtResource( 49 ), ExtResource( 50 ), ExtResource( 70 ), ExtResource( 71 ), null ],
+"loop": false,
+"name": "die",
+"speed": 12.0
+}, {
+"frames": [ ExtResource( 14 ), ExtResource( 29 ), ExtResource( 26 ), ExtResource( 28 ) ],
 "loop": true,
 "name": "air",
-"speed": 5.0
+"speed": 6.0
 }, {
-"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ],
+"frames": [ ExtResource( 30 ), ExtResource( 3 ), ExtResource( 35 ), ExtResource( 34 ), ExtResource( 31 ), ExtResource( 36 ), ExtResource( 4 ), ExtResource( 32 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 33 ), ExtResource( 39 ) ],
+"loop": true,
+"name": "walk",
+"speed": 12.0
+}, {
+"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 24 ), ExtResource( 22 ), ExtResource( 21 ), ExtResource( 23 ) ],
 "loop": false,
 "name": "attack",
 "speed": 20.0
-}, {
-"frames": [ ExtResource( 3 ), ExtResource( 4 ) ],
-"loop": true,
-"name": "walk",
-"speed": 5.0
 } ]
 
-[sub_resource type="CapsuleShape2D" id=3]
-radius = 72.0
-height = 48.0
-
 [node name="Perso" type="KinematicBody2D"]
+scale = Vector2( 0.37, 0.37 )
 script = ExtResource( 9 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+material = ExtResource( 73 )
 frames = SubResource( 1 )
 animation = "idle"
 frame = 1
@@ -58,27 +117,20 @@ __meta__ = {
 }
 
 [node name="CollisionPhysics" type="CollisionShape2D" parent="."]
+position = Vector2( -5.95276, 32.0699 )
 shape = ExtResource( 17 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="CollisionDamage" type="Area2D" parent="."]
 
 [node name="Shape" type="CollisionShape2D" parent="CollisionDamage"]
-shape = ExtResource( 17 )
+position = Vector2( -6.45273, 25.7236 )
+shape = ExtResource( 40 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 __meta__ = {
 "_edit_lock_": true
 }
-
-[node name="Debug" type="Label" parent="."]
-margin_left = -504.0
-margin_top = -288.0
-margin_right = -408.0
-margin_bottom = -242.0
 
 [node name="StateMachine" type="Node2D" parent="."]
 script = ExtResource( 10 )
@@ -93,14 +145,45 @@ script = ExtResource( 13 )
 [node name="Run" type="Node2D" parent="StateMachine"]
 script = ExtResource( 12 )
 
-[node name="Attack" type="Area2D" parent="StateMachine" groups=["perso_attack"]]
-position = Vector2( 64, 0 )
+[node name="Attack" type="Area2D" parent="StateMachine" groups=[
+"perso_attack",
+]]
+position = Vector2( 37, 25 )
 script = ExtResource( 16 )
 
 [node name="Collision" type="CollisionShape2D" parent="StateMachine/Attack"]
-shape = SubResource( 3 )
+shape = ExtResource( 41 )
 disabled = true
 
-[connection signal="flipped_horizontal" from="." to="StateMachine/Attack" method="_on_flipped_horizontal"]
+[node name="Audio" type="AudioStreamPlayer2D" parent="StateMachine/Attack"]
+stream = ExtResource( 72 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Container" type="Control" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Debug" type="Label" parent="CanvasLayer/Container"]
+margin_bottom = 14.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="CanvasLayer/Container"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -10.0
+margin_right = 12.0
+margin_bottom = 10.0
+text = "Die"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="animation_finished" from="AnimatedSprite" to="StateMachine/Attack" method="_on_animation_finished"]
 [connection signal="area_entered" from="CollisionDamage" to="." method="_on_CollisionDamage_area_entered"]
+[connection signal="pressed" from="CanvasLayer/Container/Button" to="." method="die"]
