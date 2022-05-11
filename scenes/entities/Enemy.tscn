@@ -58,9 +58,10 @@ anims/flash = ExtResource( 2 )
 material = ExtResource( 1 )
 frames = SubResource( 1 )
 animation = "idle"
+frame = 1
 playing = true
 
-[node name="Area2D" type="Area2D" parent="." groups=["enemy_body"]]
+[node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 2 )

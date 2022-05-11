@@ -1,6 +1,6 @@
 extends PlayerState
 
-var _x_area_position = 37
+var _x_area_position = 14
 onready var _collision = $Collision
 onready var _sound = $Audio
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=2]
+[gd_scene load_steps=77 format=2]
 
 [ext_resource path="res://assets/sprites/perso/idle/perso_idle0000.png" type="Texture" id=1]
 [ext_resource path="res://assets/sprites/perso/idle/perso_idle0001.png" type="Texture" id=2]
@@ -73,6 +73,8 @@
 [ext_resource path="res://assets/sprites/perso/die/perso_die0029.png" type="Texture" id=71]
 [ext_resource path="res://assets/sounds/swing.mp3" type="AudioStream" id=72]
 [ext_resource path="res://resources/EnemyShader.tres" type="Material" id=73]
+[ext_resource path="res://scenes/entities/PersoInfos.gd" type="Script" id=74]
+[ext_resource path="res://scripts/state/Dying.gd" type="Script" id=75]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -91,39 +93,19 @@ animations = [ {
 "name": "air",
 "speed": 6.0
 }, {
+"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 24 ), ExtResource( 22 ), ExtResource( 21 ), ExtResource( 23 ) ],
+"loop": true,
+"name": "attack",
+"speed": 20.0
+}, {
 "frames": [ ExtResource( 30 ), ExtResource( 3 ), ExtResource( 35 ), ExtResource( 34 ), ExtResource( 31 ), ExtResource( 36 ), ExtResource( 4 ), ExtResource( 32 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 33 ), ExtResource( 39 ) ],
 "loop": true,
 "name": "walk",
 "speed": 12.0
-}, {
-"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 24 ), ExtResource( 22 ), ExtResource( 21 ), ExtResource( 23 ) ],
-"loop": false,
-"name": "attack",
-"speed": 20.0
 } ]
 
 [node name="Perso" type="KinematicBody2D"]
-scale = Vector2( 0.37, 0.37 )
 script = ExtResource( 9 )
-
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-material = ExtResource( 73 )
-frames = SubResource( 1 )
-animation = "idle"
-playing = true
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="CollisionPhysics" type="CollisionShape2D" parent="."]
-position = Vector2( -5.95276, 32.0699 )
-shape = ExtResource( 17 )
-
-[node name="CollisionDamage" type="Area2D" parent="."]
-
-[node name="Shape" type="CollisionShape2D" parent="CollisionDamage"]
-position = Vector2( -6.45273, 25.7236 )
-shape = ExtResource( 40 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
@@ -131,9 +113,33 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+material = ExtResource( 73 )
+scale = Vector2( 0.37, 0.37 )
+frames = SubResource( 1 )
+animation = "idle"
+frame = 2
+playing = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionPhysics" type="CollisionShape2D" parent="."]
+position = Vector2( -3.14042, 12.4722 )
+shape = ExtResource( 17 )
+
+[node name="CollisionDamage" type="Area2D" parent="." groups=["perso_body"]]
+
+[node name="Shape" type="CollisionShape2D" parent="CollisionDamage"]
+position = Vector2( -2.6687, 11.6386 )
+shape = ExtResource( 40 )
+
 [node name="StateMachine" type="Node2D" parent="."]
 script = ExtResource( 10 )
 initial_state = NodePath("Idle")
+
+[node name="Dying" type="Node2D" parent="StateMachine"]
+script = ExtResource( 75 )
 
 [node name="Idle" type="Node2D" parent="StateMachine"]
 script = ExtResource( 11 )
@@ -144,10 +150,8 @@ script = ExtResource( 13 )
 [node name="Run" type="Node2D" parent="StateMachine"]
 script = ExtResource( 12 )
 
-[node name="Attack" type="Area2D" parent="StateMachine" groups=[
-"perso_attack",
-]]
-position = Vector2( 37, 25 )
+[node name="Attack" type="Area2D" parent="StateMachine" groups=["perso_attack"]]
+position = Vector2( 14, 8 )
 script = ExtResource( 16 )
 
 [node name="Collision" type="CollisionShape2D" parent="StateMachine/Attack"]
@@ -157,32 +161,42 @@ disabled = true
 [node name="Audio" type="AudioStreamPlayer2D" parent="StateMachine/Attack"]
 stream = ExtResource( 72 )
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="Infos" type="Control" parent="."]
+margin_left = -18.5108
+margin_top = -117.698
+margin_right = -18.5108
+margin_bottom = -117.698
+script = ExtResource( 74 )
 
-[node name="Container" type="Control" parent="CanvasLayer"]
-anchor_right = 1.0
+[node name="Container" type="VBoxContainer" parent="Infos"]
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Debug" type="Label" parent="CanvasLayer/Container"]
-margin_bottom = 14.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button" type="Button" parent="CanvasLayer/Container"]
-anchor_top = 0.5
-anchor_bottom = 0.5
-margin_top = -10.0
-margin_right = 12.0
-margin_bottom = 10.0
+[node name="Button" type="Button" parent="Infos/Container"]
+margin_right = 34.0
+margin_bottom = 20.0
 text = "Die"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Velocity" type="Label" parent="Infos/Container"]
+margin_top = 24.0
+margin_right = 34.0
+margin_bottom = 38.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="State" type="Label" parent="Infos/Container"]
+margin_top = 42.0
+margin_right = 34.0
+margin_bottom = 56.0
+
+[node name="Health" type="Label" parent="Infos/Container"]
+margin_top = 60.0
+margin_right = 34.0
+margin_bottom = 74.0
+
 [connection signal="animation_finished" from="AnimatedSprite" to="StateMachine/Attack" method="_on_animation_finished"]
 [connection signal="area_entered" from="CollisionDamage" to="." method="_on_CollisionDamage_area_entered"]
-[connection signal="pressed" from="CanvasLayer/Container/Button" to="." method="die"]
+[connection signal="pressed" from="Infos/Container/Button" to="." method="die"]

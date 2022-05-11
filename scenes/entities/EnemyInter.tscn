@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://scenes/entities/Enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/EnemyInterSprites.tres" type="SpriteFrames" id=2]
@@ -30,6 +30,7 @@
 [ext_resource path="res://assets/sprites/enemy/inter/attack/enemy_inter_attack0019.png" type="Texture" id=28]
 [ext_resource path="res://assets/sprites/enemy/inter/attack/enemy_inter_attack0028.png" type="Texture" id=29]
 [ext_resource path="res://scenes/entities/EnemyInterNeedle.gd" type="Script" id=30]
+[ext_resource path="res://resources/EnemyDetectionBox.tres" type="Shape2D" id=31]
 
 [sub_resource type="Shader" id=3]
 code = "shader_type canvas_item;
@@ -72,16 +73,30 @@ scale = Vector2( 0.5, 0.5 )
 [node name="Sprite" parent="Animation" index="1"]
 material = SubResource( 4 )
 frames = ExtResource( 2 )
+frame = 0
 
 [node name="Needle" type="AnimatedSprite" parent="Animation" index="2"]
 frames = SubResource( 5 )
 animation = "idle"
-frame = 1
 playing = true
 script = ExtResource( 30 )
+
+[node name="Timer" type="Timer" parent="Animation/Needle" index="0"]
+wait_time = 0.5
+
+[node name="Area2D" parent="." index="1" groups=["enemy_inter"]]
 
 [node name="CollisionShape2D" parent="Area2D" index="0"]
 position = Vector2( 3.3712, -3.74577 )
 shape = SubResource( 6 )
 
+[node name="Detection" type="Area2D" parent="." index="3"]
+
+[node name="Shape" type="CollisionShape2D" parent="Detection" index="0"]
+shape = ExtResource( 31 )
+
 [connection signal="dying" from="." to="Animation/Needle" method="_on_EnemyInter_dying"]
+[connection signal="frame_changed" from="Animation/Needle" to="Animation/Needle" method="_on_Needle_frame_changed"]
+[connection signal="timeout" from="Animation/Needle/Timer" to="Animation/Needle" method="_on_Timer_timeout"]
+[connection signal="area_entered" from="Detection" to="Animation/Needle" method="_on_Detection_area_entered"]
+[connection signal="area_exited" from="Detection" to="Animation/Needle" method="_on_Detection_area_exited"]

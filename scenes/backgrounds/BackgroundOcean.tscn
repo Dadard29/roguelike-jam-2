@@ -1,0 +1,97 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://assets/sprites/backgrounds/bg_ocean/bg_ocean0000.png" type="Texture" id=1]
+[ext_resource path="res://assets/sprites/backgrounds/bg_ocean/bg_ocean0001.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/backgrounds/bg_ocean/bg_ocean0002.png" type="Texture" id=3]
+[ext_resource path="res://assets/sprites/backgrounds/bg_ocean/bg_ocean0003.png" type="Texture" id=4]
+[ext_resource path="res://assets/sprites/backgrounds/bg_ocean/bg_ocean0004.png" type="Texture" id=5]
+[ext_resource path="res://assets/sprites/backgrounds/bg_ocean/bg_ocean0009.png" type="Texture" id=6]
+[ext_resource path="res://assets/sprites/backgrounds/bg_ocean/bg_ocean0006.png" type="Texture" id=7]
+[ext_resource path="res://assets/sprites/backgrounds/bg_ocean/bg_ocean0013.png" type="Texture" id=8]
+[ext_resource path="res://assets/sprites/backgrounds/bg_ocean/bg_ocean0012.png" type="Texture" id=9]
+[ext_resource path="res://assets/sprites/backgrounds/particle_ocean.png" type="Texture" id=10]
+[ext_resource path="res://assets/sprites/backgrounds/bg_ocean/bg_ocean0005.png" type="Texture" id=11]
+[ext_resource path="res://assets/sprites/backgrounds/bg_ocean/bg_ocean0010.png" type="Texture" id=12]
+[ext_resource path="res://assets/sprites/backgrounds/bg_ocean/bg_ocean0017.png" type="Texture" id=13]
+[ext_resource path="res://assets/sprites/backgrounds/bg_ocean/bg_ocean0016.png" type="Texture" id=14]
+[ext_resource path="res://assets/sprites/backgrounds/bg_ocean/bg_ocean0008.png" type="Texture" id=15]
+[ext_resource path="res://assets/sprites/backgrounds/bg_ocean/bg_ocean0014.png" type="Texture" id=16]
+[ext_resource path="res://assets/sprites/backgrounds/bg_ocean/bg_ocean0015.png" type="Texture" id=17]
+[ext_resource path="res://assets/sprites/backgrounds/bg_ocean/bg_ocean0011.png" type="Texture" id=18]
+[ext_resource path="res://assets/sprites/backgrounds/bg_ocean/bg_ocean0007.png" type="Texture" id=19]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 11 ), ExtResource( 7 ), ExtResource( 19 ), ExtResource( 15 ), ExtResource( 6 ), ExtResource( 12 ), ExtResource( 18 ), ExtResource( 9 ), ExtResource( 8 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 14 ), ExtResource( 13 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="BackgroundOcean" type="ParallaxBackground"]
+
+[node name="Layer" type="ParallaxLayer" parent="."]
+motion_scale = Vector2( 0, 0 )
+
+[node name="Sprite" type="AnimatedSprite" parent="Layer"]
+modulate = Color( 0.294118, 0.294118, 0.294118, 1 )
+frames = SubResource( 1 )
+frame = 16
+playing = true
+
+[node name="Particles2D" type="CPUParticles2D" parent="Layer"]
+position = Vector2( 347.346, -86.8365 )
+scale = Vector2( 0.5, 0.5 )
+amount = 20
+lifetime = 15.0
+explosiveness = 0.3
+lifetime_randomness = 1.0
+texture = ExtResource( 10 )
+emission_shape = 1
+emission_sphere_radius = 64.0
+direction = Vector2( 0, -1 )
+spread = 5.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 300.0
+initial_velocity_random = 0.5
+scale_amount = 0.0
+scale_amount_random = 0.5
+color = Color( 0.054902, 0.0823529, 0.247059, 0.705882 )
+
+[node name="Particles2D2" type="CPUParticles2D" parent="Layer"]
+position = Vector2( -456.835, 160.459 )
+scale = Vector2( 0.5, 0.5 )
+amount = 20
+lifetime = 15.0
+explosiveness = 0.3
+lifetime_randomness = 1.0
+texture = ExtResource( 10 )
+emission_shape = 1
+emission_sphere_radius = 64.0
+direction = Vector2( 0, -1 )
+spread = 5.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 300.0
+initial_velocity_random = 0.5
+scale_amount = 0.0
+scale_amount_random = 0.5
+color = Color( 0.054902, 0.0823529, 0.247059, 0.705882 )
+
+[node name="Particles2D3" type="CPUParticles2D" parent="Layer"]
+position = Vector2( 585.202, -3.77551 )
+scale = Vector2( 0.5, 0.5 )
+amount = 20
+lifetime = 15.0
+explosiveness = 0.3
+lifetime_randomness = 1.0
+texture = ExtResource( 10 )
+emission_shape = 1
+emission_sphere_radius = 64.0
+direction = Vector2( 0, -1 )
+spread = 5.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 300.0
+initial_velocity_random = 0.5
+scale_amount = 0.0
+scale_amount_random = 0.5
+color = Color( 0.054902, 0.0823529, 0.247059, 0.705882 )

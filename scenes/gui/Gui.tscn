@@ -1,0 +1,98 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scenes/gui/LifeBar.gd" type="Script" id=1]
+[ext_resource path="res://assets/sprites/icons/hearts_over.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/icons/hearts_progress.png" type="Texture" id=3]
+[ext_resource path="res://scenes/gui/Gui.gd" type="Script" id=4]
+[ext_resource path="res://assets/sprites/icons/hearts_under.png" type="Texture" id=5]
+[ext_resource path="res://resources/Theme.tres" type="Theme" id=6]
+
+[node name="Gui" type="CanvasLayer"]
+script = ExtResource( 4 )
+
+[node name="TopLeft" type="MarginContainer" parent="."]
+margin_right = 278.0
+margin_bottom = 92.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource( 6 )
+
+[node name="Control" type="VBoxContainer" parent="TopLeft"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 273.0
+margin_bottom = 87.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="LifeBar" type="HBoxContainer" parent="TopLeft/Control"]
+margin_right = 268.0
+margin_bottom = 64.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource( 1 )
+
+[node name="Heart" type="TextureProgress" parent="TopLeft/Control/LifeBar"]
+margin_right = 64.0
+margin_bottom = 64.0
+max_value = 25.0
+value = 25.0
+texture_under = ExtResource( 5 )
+texture_over = ExtResource( 2 )
+texture_progress = ExtResource( 3 )
+fill_mode = 3
+
+[node name="Heart2" type="TextureProgress" parent="TopLeft/Control/LifeBar"]
+margin_left = 68.0
+margin_right = 132.0
+margin_bottom = 64.0
+max_value = 25.0
+value = 25.0
+texture_under = ExtResource( 5 )
+texture_over = ExtResource( 2 )
+texture_progress = ExtResource( 3 )
+fill_mode = 3
+
+[node name="Heart3" type="TextureProgress" parent="TopLeft/Control/LifeBar"]
+margin_left = 136.0
+margin_right = 200.0
+margin_bottom = 64.0
+max_value = 25.0
+value = 25.0
+texture_under = ExtResource( 5 )
+texture_over = ExtResource( 2 )
+texture_progress = ExtResource( 3 )
+fill_mode = 3
+
+[node name="Heart4" type="TextureProgress" parent="TopLeft/Control/LifeBar"]
+margin_left = 204.0
+margin_right = 268.0
+margin_bottom = 64.0
+max_value = 25.0
+value = 25.0
+texture_under = ExtResource( 5 )
+texture_over = ExtResource( 2 )
+texture_progress = ExtResource( 3 )
+fill_mode = 3
+
+[node name="Health" type="Label" parent="TopLeft/Control"]
+margin_top = 68.0
+margin_right = 268.0
+margin_bottom = 82.0
+
+[node name="TopRight" type="MarginContainer" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -214.0
+margin_bottom = 24.0
+theme = ExtResource( 6 )
+
+[node name="Control" type="VBoxContainer" parent="TopRight"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 209.0
+margin_bottom = 19.0
+
+[node name="Seed" type="Label" parent="TopRight/Control"]
+margin_right = 204.0
+margin_bottom = 14.0
