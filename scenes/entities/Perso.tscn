@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=2]
+[gd_scene load_steps=79 format=2]
 
 [ext_resource path="res://assets/sprites/perso/idle/perso_idle0000.png" type="Texture" id=1]
 [ext_resource path="res://assets/sprites/perso/idle/perso_idle0001.png" type="Texture" id=2]
@@ -104,6 +104,37 @@ animations = [ {
 "speed": 12.0
 } ]
 
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:material:shader_param/flash_state")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "flash"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:material:shader_param/flash_state")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8 ),
+"transitions": PoolRealArray( 1, 0.5, 1, 0.5, 2 ),
+"update": 0,
+"values": [ 0.0, 1.0, 0.0, 1.0, 0.0 ]
+}
+
 [node name="Perso" type="KinematicBody2D"]
 script = ExtResource( 9 )
 
@@ -113,16 +144,21 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="Animation" type="Node2D" parent="."]
+
+[node name="Sprite" type="AnimatedSprite" parent="Animation"]
 material = ExtResource( 73 )
 scale = Vector2( 0.37, 0.37 )
 frames = SubResource( 1 )
 animation = "idle"
-frame = 2
 playing = true
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="Player" type="AnimationPlayer" parent="Animation"]
+anims/RESET = SubResource( 2 )
+anims/flash = SubResource( 3 )
 
 [node name="CollisionPhysics" type="CollisionShape2D" parent="."]
 position = Vector2( -3.14042, 12.4722 )
@@ -197,6 +233,8 @@ margin_top = 60.0
 margin_right = 34.0
 margin_bottom = 74.0
 
-[connection signal="animation_finished" from="AnimatedSprite" to="StateMachine/Attack" method="_on_animation_finished"]
+[connection signal="animation_finished" from="Animation/Sprite" to="StateMachine/Attack" method="_on_animation_finished"]
+[connection signal="animation_finished" from="Animation/Player" to="." method="_on_Player_animation_finished"]
+[connection signal="animation_started" from="Animation/Player" to="." method="_on_Player_animation_started"]
 [connection signal="area_entered" from="CollisionDamage" to="." method="_on_CollisionDamage_area_entered"]
 [connection signal="pressed" from="Infos/Container/Button" to="." method="die"]

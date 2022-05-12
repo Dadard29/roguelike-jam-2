@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://resources/Tileset.tres" type="TileSet" id=1]
+[ext_resource path="res://scenes/entities/EnemyBasic.tscn" type="PackedScene" id=2]
 
 [node name="Lobby" type="Node2D"]
 
@@ -8,3 +9,6 @@
 tile_set = ExtResource( 1 )
 format = 1
 tile_data = PoolIntArray( -524288, 0, 0, -524287, 0, 0, -524286, 0, 0, -524285, 0, 0, -524284, 0, 0, -524283, 0, 0, -524282, 0, 0, -524281, 0, 0, -524280, 0, 0, -524279, 0, 0, -458752, 0, 0, -458743, 0, 0, -393216, 0, 0, -393207, 0, 0, -327680, 0, 0, -327671, 0, 0, -262144, 0, 0, -262135, 0, 0, -196608, 0, 0, -196599, 0, 0, -131072, 0, 0, -131063, 0, 0, -65536, 0, 0, 0, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65539, 0, 0, 65540, 0, 0, 65541, 0, 0, 65542, 0, 0, 65543, 0, 0, 65544, 0, 0, 65545, 0, 0 )
+
+[node name="EnemyBasic" parent="." instance=ExtResource( 2 )]
+position = Vector2( 432, 0 )

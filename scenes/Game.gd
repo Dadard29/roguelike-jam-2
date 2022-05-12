@@ -15,7 +15,7 @@ export (int) var MAX_HEALTH = 100
 export (int) var ATTACK_DMG = 10
 export (int) var ARMOR_BASE = 1
 
-export (int) var LEVEL_COUNT_MAX = 11
+export (int) var LEVEL_COUNT_MAX = 10
 export (int) var LEVEL_COUNT = 3
 
 var _tunnel_scene = preload("res://scenes/levels/Tunnel.tscn")
@@ -23,7 +23,7 @@ var _rng = RandomNumberGenerator.new()
 var _levels = []
 
 func init_levels():
-	for i in range(1, LEVEL_COUNT_MAX):
+	for i in range(1, LEVEL_COUNT_MAX + 1):
 		var level_path = "res://scenes/levels/Level%d.tscn" % i
 		var level = load(level_path).instance()
 		_levels.append(level)

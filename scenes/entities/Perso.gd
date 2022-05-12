@@ -10,13 +10,18 @@ var health: int
 var attack_damage: int
 var armor: int
 
-onready var animation = $AnimatedSprite
+var _recover: bool = false
+
+onready var animation = $Animation/Sprite
+onready var player = $Animation/Player
 
 const ENEMY_DAMAGE = {
 	"enemy_basic": 10,
 	"enemy_inter": 10,
 	"enemy_inter_projectile": 20
 }
+const FLASH_ANIM = "flash"
+const TILE_KILL_GROUP = "tile_kill"
 
 onready var _infos = $Infos
 onready var _state_machine = $StateMachine
@@ -80,6 +85,20 @@ func update_flip_horizontal():
 		animation.flip_h = current_flip
 		_attack_state.flip_horizontal(current_flip)
 
+func take_damage(dmg_taken: int) -> void:
+	if _recover:
+		# still recovering..
+		return
+	
+	#fixme: add sound
+	player.play(FLASH_ANIM)
+	health -= dmg_taken
+	if health <= 0:
+		die()
+		return
+		
+	emit_signal("damaged", dmg_taken, health)
+
 # took damage
 func _on_CollisionDamage_area_entered(area: Area2D) -> void:
 	var groups = area.get_groups()
@@ -91,19 +110,31 @@ func _on_CollisionDamage_area_entered(area: Area2D) -> void:
 	if dmg_taken == null:
 		return
 	
-	health -= dmg_taken
-	if health <= 0:
-		die()
-		return
-		
-	emit_signal("damaged", dmg_taken, health)
-		
-	# fixme
-	# var enemy = area.get_parent()
-	# print("took damage: " + enemy.to_string())
+	take_damage(dmg_taken)
 	
+# start flashing
+func _on_Player_animation_started(anim_name: String) -> void:
+	if anim_name != FLASH_ANIM:
+		return
+	
+	_recover = true
+
+# end flashing
+func _on_Player_animation_finished(anim_name: String) -> void:
+	if anim_name != FLASH_ANIM:
+		return
+	
+	_recover = false
+
+func is_on_tile_kill():
+	for i in get_slide_count():
+		var collider = get_slide_collision(i).get_collider()
+		if collider.is_in_group(TILE_KILL_GROUP):
+			take_damage(collider.damage)
+
 
 func _physics_process(_delta: float) -> void:
 	update_flip_horizontal()
 	
 	_infos.update_debug(velocity, _state_machine.state.name, health)
+
