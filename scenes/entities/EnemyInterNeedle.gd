@@ -4,6 +4,7 @@ const ATTACK_ANIM = "attack"
 const IDLE_ANIM = "idle"
 
 onready var _timer = $Timer
+onready var _audio = $AudioShoot
 
 export (float) var round_value = 0.01
 
@@ -54,6 +55,10 @@ func _on_Needle_frame_changed():
 		return
 	
 	if animation == ATTACK_ANIM:
+		if frame == 17:
+			_audio.play()
+			return
+		
 		if frame == 20:
 			# fire at the specific frame
 			# print("firing " + String(_shoot_orientation))

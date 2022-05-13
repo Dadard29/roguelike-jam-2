@@ -9,13 +9,15 @@
 [node name="Game" type="Node2D"]
 script = ExtResource( 3 )
 initial_perso_position = Vector2( 200, 0 )
+DEBUG_ALL_LEVELS = true
+
+[node name="Lobby" parent="." instance=ExtResource( 7 )]
 
 [node name="Levels" type="Node2D" parent="."]
 
-[node name="Lobby" parent="Levels" instance=ExtResource( 7 )]
-
 [node name="Perso" parent="." instance=ExtResource( 1 )]
 position = Vector2( 200, 0 )
+debug_invicible = true
 
 [node name="Background" parent="." instance=ExtResource( 4 )]
 

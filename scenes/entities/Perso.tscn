@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=2]
+[gd_scene load_steps=81 format=2]
 
 [ext_resource path="res://assets/sprites/perso/idle/perso_idle0000.png" type="Texture" id=1]
 [ext_resource path="res://assets/sprites/perso/idle/perso_idle0001.png" type="Texture" id=2]
@@ -75,6 +75,8 @@
 [ext_resource path="res://resources/EnemyShader.tres" type="Material" id=73]
 [ext_resource path="res://scenes/entities/PersoInfos.gd" type="Script" id=74]
 [ext_resource path="res://scripts/state/Dying.gd" type="Script" id=75]
+[ext_resource path="res://assets/sounds/damaged.mp3" type="AudioStream" id=76]
+[ext_resource path="res://assets/sounds/death.mp3" type="AudioStream" id=77]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -88,11 +90,6 @@ animations = [ {
 "name": "die",
 "speed": 12.0
 }, {
-"frames": [ ExtResource( 14 ), ExtResource( 29 ), ExtResource( 26 ), ExtResource( 28 ) ],
-"loop": true,
-"name": "air",
-"speed": 6.0
-}, {
 "frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 24 ), ExtResource( 22 ), ExtResource( 21 ), ExtResource( 23 ) ],
 "loop": true,
 "name": "attack",
@@ -102,6 +99,11 @@ animations = [ {
 "loop": true,
 "name": "walk",
 "speed": 12.0
+}, {
+"frames": [ ExtResource( 14 ), ExtResource( 29 ), ExtResource( 26 ), ExtResource( 28 ) ],
+"loop": true,
+"name": "air",
+"speed": 6.0
 } ]
 
 [sub_resource type="Animation" id=2]
@@ -139,10 +141,8 @@ tracks/0/keys = {
 script = ExtResource( 9 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2( 0, -224 )
 current = true
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="Animation" type="Node2D" parent="."]
 
@@ -151,6 +151,7 @@ material = ExtResource( 73 )
 scale = Vector2( 0.37, 0.37 )
 frames = SubResource( 1 )
 animation = "idle"
+frame = 1
 playing = true
 __meta__ = {
 "_edit_lock_": true
@@ -196,6 +197,7 @@ disabled = true
 
 [node name="Audio" type="AudioStreamPlayer2D" parent="StateMachine/Attack"]
 stream = ExtResource( 72 )
+volume_db = -10.0
 
 [node name="Infos" type="Control" parent="."]
 margin_left = -18.5108
@@ -206,6 +208,10 @@ script = ExtResource( 74 )
 
 [node name="Container" type="VBoxContainer" parent="Infos"]
 anchor_bottom = 1.0
+margin_left = 2.37842
+margin_top = -45.7845
+margin_right = 36.3784
+margin_bottom = 64.2155
 
 [node name="Button" type="Button" parent="Infos/Container"]
 margin_right = 34.0
@@ -232,6 +238,26 @@ margin_bottom = 56.0
 margin_top = 60.0
 margin_right = 34.0
 margin_bottom = 74.0
+
+[node name="Attack" type="Label" parent="Infos/Container"]
+margin_top = 78.0
+margin_right = 34.0
+margin_bottom = 92.0
+
+[node name="Armor" type="Label" parent="Infos/Container"]
+margin_top = 96.0
+margin_right = 34.0
+margin_bottom = 110.0
+
+[node name="Audio" type="Node2D" parent="."]
+
+[node name="Damaged" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource( 76 )
+volume_db = -10.0
+
+[node name="Death" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource( 77 )
+volume_db = -10.0
 
 [connection signal="animation_finished" from="Animation/Sprite" to="StateMachine/Attack" method="_on_animation_finished"]
 [connection signal="animation_finished" from="Animation/Player" to="." method="_on_Player_animation_finished"]

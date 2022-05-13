@@ -36,10 +36,11 @@ motion_scale = Vector2( 0, 0 )
 [node name="Sprite" type="AnimatedSprite" parent="Layer"]
 modulate = Color( 0.294118, 0.294118, 0.294118, 1 )
 frames = SubResource( 1 )
-frame = 16
+frame = 7
 playing = true
 
 [node name="Particles2D" type="CPUParticles2D" parent="Layer"]
+modulate = Color( 0, 0, 0, 1 )
 position = Vector2( 347.346, -86.8365 )
 scale = Vector2( 0.5, 0.5 )
 amount = 20
@@ -59,6 +60,7 @@ scale_amount_random = 0.5
 color = Color( 0.054902, 0.0823529, 0.247059, 0.705882 )
 
 [node name="Particles2D2" type="CPUParticles2D" parent="Layer"]
+modulate = Color( 0, 0, 0, 1 )
 position = Vector2( -456.835, 160.459 )
 scale = Vector2( 0.5, 0.5 )
 amount = 20
@@ -78,6 +80,7 @@ scale_amount_random = 0.5
 color = Color( 0.054902, 0.0823529, 0.247059, 0.705882 )
 
 [node name="Particles2D3" type="CPUParticles2D" parent="Layer"]
+modulate = Color( 0, 0, 0, 1 )
 position = Vector2( 585.202, -3.77551 )
 scale = Vector2( 0.5, 0.5 )
 amount = 20

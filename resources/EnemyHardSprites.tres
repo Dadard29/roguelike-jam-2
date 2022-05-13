@@ -1,0 +1,21 @@
+[gd_resource type="SpriteFrames" load_steps=7 format=2]
+
+[ext_resource path="res://assets/sprites/enemy/hard/die/enemy_hard_die0002.png" type="Texture" id=1]
+[ext_resource path="res://assets/sprites/enemy/hard/idle/enemy_hard_idle0001.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/enemy/hard/die/enemy_hard_die0000.png" type="Texture" id=3]
+[ext_resource path="res://assets/sprites/enemy/hard/die/enemy_hard_die0001.png" type="Texture" id=4]
+[ext_resource path="res://assets/sprites/enemy/hard/die/enemy_hard_die0003.png" type="Texture" id=5]
+[ext_resource path="res://assets/sprites/enemy/hard/idle/enemy_hard_idle0000.png" type="Texture" id=6]
+
+[resource]
+animations = [ {
+"frames": [ ExtResource( 6 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 1 ), ExtResource( 5 ), null ],
+"loop": false,
+"name": "die",
+"speed": 6.0
+} ]

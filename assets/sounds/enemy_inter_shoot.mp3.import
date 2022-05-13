@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/enemy_inter_shoot.mp3-69ccb81ee5b820515002a2ef0d68f0f2.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/enemy_inter_shoot.mp3"
+dest_files=[ "res://.import/enemy_inter_shoot.mp3-69ccb81ee5b820515002a2ef0d68f0f2.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

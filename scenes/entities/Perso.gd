@@ -14,14 +14,20 @@ var _recover: bool = false
 
 onready var animation = $Animation/Sprite
 onready var player = $Animation/Player
+onready var sound_damaged = $Audio/Damaged
+onready var sound_death = $Audio/Death
+
+export var debug_invicible = false
 
 const ENEMY_DAMAGE = {
 	"enemy_basic": 10,
 	"enemy_inter": 10,
-	"enemy_inter_projectile": 20
+	"enemy_inter_projectile": 20,
+	"enemy_hard": 15
 }
 const FLASH_ANIM = "flash"
 const TILE_KILL_GROUP = "tile_kill"
+const BONUS_GROUP = "bonus"
 
 onready var _infos = $Infos
 onready var _state_machine = $StateMachine
@@ -53,6 +59,7 @@ func spawn(max_health: int, attack_damage_default: int, armor_default: int):
 	armor = armor_default
 
 func die():
+	sound_death.play()
 	_state_machine.transition_to("Dying")
 	yield(animation, "animation_finished")
 	emit_signal("died")
@@ -90,8 +97,12 @@ func take_damage(dmg_taken: int) -> void:
 		# still recovering..
 		return
 	
-	#fixme: add sound
+	sound_damaged.play()
 	player.play(FLASH_ANIM)
+	
+	if debug_invicible:
+		return
+
 	health -= dmg_taken
 	if health <= 0:
 		die()
@@ -99,18 +110,41 @@ func take_damage(dmg_taken: int) -> void:
 		
 	emit_signal("damaged", dmg_taken, health)
 
-# took damage
-func _on_CollisionDamage_area_entered(area: Area2D) -> void:
-	var groups = area.get_groups()
-	if groups.size() < 1:
-		return
-
-	var group = groups[0]
+func _enemy_collision(area: Area2D):
+	var group = area.get_groups()[0]
 	var dmg_taken = ENEMY_DAMAGE.get(group)
 	if dmg_taken == null:
 		return
 	
 	take_damage(dmg_taken)
+
+func _bonus_collision(area: Area2D):
+	var bonus = area.get_parent()
+	if not bonus.is_activated():
+		return
+	
+	if bonus.type == "DAMAGE":
+		attack_damage += bonus.amount
+	elif bonus.type == "ARMOR":
+		armor += bonus.amount
+	else:
+		print("invalid bonus type: " + bonus.type)
+	
+	bonus.deactivate()
+
+# took damage
+func _on_CollisionDamage_area_entered(area: Area2D) -> void:
+	var groups = area.get_groups()
+	if groups.size() < 1:
+		return
+	
+	# is bonus
+	if area.is_in_group(BONUS_GROUP):
+		_bonus_collision(area)
+		return
+		
+	# is enemy
+	_enemy_collision(area)
 	
 # start flashing
 func _on_Player_animation_started(anim_name: String) -> void:
@@ -126,15 +160,19 @@ func _on_Player_animation_finished(anim_name: String) -> void:
 	
 	_recover = false
 
-func is_on_tile_kill():
+func check_if_is_on_tile_kill():
 	for i in get_slide_count():
 		var collider = get_slide_collision(i).get_collider()
 		if collider.is_in_group(TILE_KILL_GROUP):
 			take_damage(collider.damage)
+			print("tile kill")
 
 
 func _physics_process(_delta: float) -> void:
 	update_flip_horizontal()
 	
-	_infos.update_debug(velocity, _state_machine.state.name, health)
+	check_if_is_on_tile_kill()
+	
+	_infos.update_debug(velocity, _state_machine.state.name, health,
+		attack_damage, armor)
 
