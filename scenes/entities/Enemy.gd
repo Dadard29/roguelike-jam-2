@@ -8,6 +8,8 @@ onready var _player = $Animation/Player
 
 signal dying
 
+var _health: int = 15
+
 func _die():
 	emit_signal("dying")
 	
@@ -20,14 +22,17 @@ func _die():
 func _update_shader(value):
 	_animation.material.set_shader_param("flash_state", value)
 
-func _take_damage():
+func _take_damage(damage: int):
 	_audio_hit.play()
 	_player.play("flash")
 	
-	# fixme
-	_die()
+	
+	_health -= damage
+	if _health <= 0:
+		_die()
 
 
 func _on_Area2D_area_entered(area: Area2D) -> void:
 	if area.is_in_group("perso_attack"):
-		_take_damage()
+		var damage = area.get_parent().get_parent().attack_damage
+		_take_damage(damage)

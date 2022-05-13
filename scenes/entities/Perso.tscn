@@ -151,7 +151,6 @@ material = ExtResource( 73 )
 scale = Vector2( 0.37, 0.37 )
 frames = SubResource( 1 )
 animation = "idle"
-frame = 1
 playing = true
 __meta__ = {
 "_edit_lock_": true
@@ -200,6 +199,7 @@ stream = ExtResource( 72 )
 volume_db = -10.0
 
 [node name="Infos" type="Control" parent="."]
+visible = false
 margin_left = -18.5108
 margin_top = -117.698
 margin_right = -18.5108

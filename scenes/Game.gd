@@ -13,7 +13,7 @@ const CELL_SIZE = 64
 
 export (int) var MAX_HEALTH = 100
 export (int) var ATTACK_DMG = 10
-export (int) var ARMOR_BASE = 1
+export (int) var ARMOR_BASE = 0
 
 export (int) var LEVEL_COUNT_MAX = 10
 export (int) var LEVEL_COUNT = 3
@@ -34,7 +34,8 @@ var _enemies_scenes = [
 ]
 
 var _bonus_types = ["DAMAGE", "ARMOR"]
-var _bonus_amount_max = 10
+var _bonus_attack_max = 5
+var _bonus_armor_max = 3
 
 func init_levels():
 	for i in range(1, LEVEL_COUNT_MAX + 1):
@@ -67,8 +68,14 @@ func get_random_bonus_type() -> String:
 	var random_index = _rng.randi_range(0, _bonus_types.size() - 1)
 	return _bonus_types[random_index]
 
-func get_random_bonus_amount() -> int :
-	return _rng.randi_range(0, _bonus_amount_max)
+func get_random_bonus_amount(bonus_type: String) -> int :
+	if bonus_type == "DAMAGE":
+		return _rng.randi_range(1, _bonus_attack_max)
+	
+	if bonus_type == "ARMOR":
+		return _rng.randi_range(1, _bonus_armor_max)
+	
+	return 0
 
 
 func instanciate_levels(levels_selected: Array) -> void:
@@ -94,7 +101,7 @@ func instanciate_levels(levels_selected: Array) -> void:
 		
 		# set level bonus
 		var bonus_type = get_random_bonus_type()
-		var bonus_amount = get_random_bonus_amount()
+		var bonus_amount = get_random_bonus_amount(bonus_type)
 		level_instance.set_bonus(bonus_type, bonus_amount)
 		
 		_levels_node.add_child(level_instance)
@@ -132,14 +139,17 @@ func reset_game():
 	_perso.spawn(MAX_HEALTH, ATTACK_DMG, ARMOR_BASE)
 	
 	_gui.set_seed(_rng.get_seed())
+	_gui.reset_stats(MAX_HEALTH, ATTACK_DMG, ARMOR_BASE)
 	
 	
 
 func _ready():
 	init_levels()
 	reset_game()
+	
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _on_Perso_updated_armor(new_armor):
+	_gui.update_armor(new_armor)
+	
+func _on_Perso_updated_attack(new_attack_damage):
+	_gui.update_attack(new_attack_damage)

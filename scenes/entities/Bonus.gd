@@ -5,8 +5,14 @@ onready var _animated = $AnimatedSprite
 onready var _area = $Box/Shape
 onready var _sound = $AudioUsed
 
-var type: String = "DAMAGE"
-var amount: int = 0
+export (String) var type = "DAMAGE"
+export (int) var amount = 0
+
+export (bool) var debug_activated_on_ready = false
+
+func _ready():
+	if debug_activated_on_ready:
+		activate()
 
 var _activated = true
 

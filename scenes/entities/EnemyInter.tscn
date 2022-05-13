@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://scenes/entities/Enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/EnemyInterSprites.tres" type="SpriteFrames" id=2]
@@ -32,6 +32,7 @@
 [ext_resource path="res://scenes/entities/EnemyInterNeedle.gd" type="Script" id=30]
 [ext_resource path="res://resources/EnemyDetectionBox.tres" type="Shape2D" id=31]
 [ext_resource path="res://assets/sounds/enemy_inter_shoot.mp3" type="AudioStream" id=32]
+[ext_resource path="res://scenes/entities/EnemyInter.gd" type="Script" id=33]
 
 [sub_resource type="Shader" id=3]
 code = "shader_type canvas_item;
@@ -70,14 +71,17 @@ height = 0.0
 
 [node name="EnemyInter" instance=ExtResource( 1 )]
 scale = Vector2( 0.5, 0.5 )
+script = ExtResource( 33 )
 
 [node name="Sprite" parent="Animation" index="1"]
 material = SubResource( 4 )
 frames = ExtResource( 2 )
+frame = 0
 
 [node name="Needle" type="AnimatedSprite" parent="Animation" index="2"]
 frames = SubResource( 5 )
 animation = "idle"
+frame = 1
 playing = true
 script = ExtResource( 30 )
 

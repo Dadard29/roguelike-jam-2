@@ -9,7 +9,7 @@ const PERSO_GROUP = "perso_body"
 onready var _sprite_body = $Animation/SpriteBody
 
 func _ready():
-	pass
+	_health = 30
 	
 
 func _physics_process(_delta: float):

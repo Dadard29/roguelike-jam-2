@@ -36,6 +36,8 @@ var is_flipped_horizontal = false
 
 signal died
 signal damaged(damage_taken)
+signal updated_attack(new_attack_damage)
+signal updated_armor(new_armor)
 
 func _ready() -> void:
 	pass
@@ -103,7 +105,7 @@ func take_damage(dmg_taken: int) -> void:
 	if debug_invicible:
 		return
 
-	health -= dmg_taken
+	health -= (dmg_taken - armor)
 	if health <= 0:
 		die()
 		return
@@ -125,8 +127,10 @@ func _bonus_collision(area: Area2D):
 	
 	if bonus.type == "DAMAGE":
 		attack_damage += bonus.amount
+		emit_signal("updated_attack", attack_damage)
 	elif bonus.type == "ARMOR":
 		armor += bonus.amount
+		emit_signal("updated_armor", armor)
 	else:
 		print("invalid bonus type: " + bonus.type)
 	

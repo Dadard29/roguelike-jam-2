@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/warrior_song.wav-7da5433e8ce0b3571676199d8f415deb.sample"
+
+[deps]
+
+source_file="res://fl/warrior_song.wav"
+dest_files=[ "res://.import/warrior_song.wav-7da5433e8ce0b3571676199d8f415deb.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=true
+compress/mode=0
